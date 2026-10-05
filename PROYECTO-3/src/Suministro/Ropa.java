@@ -1,5 +1,7 @@
 package Suministro;
 
+import java.util.Scanner;
+
 public class Ropa extends SuministroEmergencia {
     private String categoria = "";
     private String talla = "";
@@ -7,11 +9,11 @@ public class Ropa extends SuministroEmergencia {
     private int nivelPrioridad = 0;
 
     public Ropa() {
-        super("", "", "", "Ropa", 0, false);
+        super("", "", "", 0, false, "Ropa");
     }
 
     public Ropa(String idLote, String nombreInsumo, String descripcionUso, double pesoKg, boolean listoParaEnvio, String categoria, String talla, boolean esUtil, int nivelPrioridad) {
-        super(idLote, nombreInsumo, descripcionUso, "Ropa", pesoKg, listoParaEnvio);
+        super(idLote, nombreInsumo, descripcionUso, pesoKg, listoParaEnvio, "Ropa");
         this.categoria = categoria;
         this.talla = talla;
         this.esUtil = esUtil;
@@ -29,24 +31,28 @@ public class Ropa extends SuministroEmergencia {
     public void setNivelPrioridad(int nivelPrioridad) { this.nivelPrioridad = nivelPrioridad; }
 
     @Override
-    public String mostrarFichaLogistica() {
-        return "=== FICHA LOGISTICA ==="
-                + "\nId lote: " + getIdLote()
-                + "\nTipo de ayuda: " + getTipoAyuda()
-                + "\nNombre: " + getNombreInsumo()
-                + "\nDescripcion: " + getDescripcionUso()
-                + "\nPeso: " + getPesoKg() + " kg"
-                + "\nListo para envio: " + (getListoParaEnvio() ? "Si" : "No")
-                + "\nCategoria: " + categoria
+    public void registrarLote() {
+        super.registrarLote();
+        Scanner sc = ENTRADA;
+
+        System.out.print("Ingrese la categoria: ");
+        this.categoria = sc.nextLine();
+        System.out.print("Ingrese la talla: ");
+        this.talla = sc.nextLine();
+        System.out.print("¿Es util? (Si/No): ");
+        this.esUtil = sc.nextLine().equalsIgnoreCase("Si");
+        System.out.print("Ingrese el nivel de prioridad (1-5): ");
+        this.nivelPrioridad = leerInt(sc);
+    }
+
+    @Override
+    protected String datosEspecificos() {
+        return "\nCategoria: " + categoria
                 + "\nTalla: " + talla
                 + "\nUtil: " + (esUtil ? "Si" : "No")
                 + "\nPrioridad: " + nivelPrioridad;
     }
-
-    @Override
-    public boolean alternarEstadoDeEnvio() {
-        setListoParaEnvio(!getListoParaEnvio());
-        return getListoParaEnvio();
+}
     }
 
 }
