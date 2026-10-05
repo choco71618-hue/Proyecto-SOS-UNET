@@ -1,27 +1,18 @@
 package Suministro;
 
-public class Verficador extends Personas {
-    private String zonaVerificacion = "";
-    private int lotesVerificados = 0;
+public class VerificadorDeCarga extends Personas {
+    private boolean puedeAprobar = false;
 
-    public Verficador() {
+    public VerificadorDeCarga() {
         super("", "", "VerificadorDeCarga");
     }
 
-    public Verficador(String nombre, String cedula, String zonaVerificacion) {
+    public VerificadorDeCarga(String nombre, String cedula, boolean puedeAprobar) {
         super(nombre, cedula, "VerificadorDeCarga");
-        this.zonaVerificacion = zonaVerificacion;
+        this.puedeAprobar = puedeAprobar;
     }
 
-    public String getZonaVerificacion() { return zonaVerificacion; }
-    public int getLotesVerificados() { return lotesVerificados; }
+    public boolean isPuedeAprobar() { return puedeAprobar; }
 
-    public void setZonaVerificacion(String zonaVerificacion) { this.zonaVerificacion = zonaVerificacion; }
-    public void setLotesVerificados(int lotesVerificados) { this.lotesVerificados = lotesVerificados; }
-
-    public String verificarLote(SuministroEmergencia lote) {
-        lotesVerificados++;
-        lote.setListoParaEnvio(true);
-        return "Lote " + lote.getNombreInsumo() + " verificado y aprobado para envio";
-    }
+    public void setPuedeAprobar(boolean puedeAprobar) { this.puedeAprobar = puedeAprobar; }
 }
