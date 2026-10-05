@@ -1,16 +1,18 @@
 package Suministro;
 
+import java.util.Scanner;
+
 public class Alimentos extends SuministroEmergencia {
     private String tipoAlimento = "";
     private String fechaVencimiento = "";
     private int nivelPrioridad = 0;
 
     public Alimentos() {
-        super("", "", "", "Alimentos", 0, false);
+        super("", "", "", 0, false, "Alimentos");
     }
 
     public Alimentos(String idLote, String nombreInsumo, String descripcionUso, double pesoKg, boolean listoParaEnvio, String tipoAlimento, String fechaVencimiento, int nivelPrioridad) {
-        super(idLote, nombreInsumo, descripcionUso, "Alimentos", pesoKg, listoParaEnvio);
+        super(idLote, nombreInsumo, descripcionUso, pesoKg, listoParaEnvio, "Alimentos");
         this.tipoAlimento = tipoAlimento;
         this.fechaVencimiento = fechaVencimiento;
         this.nivelPrioridad = nivelPrioridad;
@@ -25,22 +27,22 @@ public class Alimentos extends SuministroEmergencia {
     public void setNivelPrioridad(int nivelPrioridad) { this.nivelPrioridad = nivelPrioridad; }
 
     @Override
-    public String mostrarFichaLogistica() {
-        return "=== FICHA LOGISTICA ==="
-                + "\nId lote: " + getIdLote()
-                + "\nTipo de ayuda: " + getTipoAyuda()
-                + "\nNombre: " + getNombreInsumo()
-                + "\nDescripcion: " + getDescripcionUso()
-                + "\nPeso: " + getPesoKg() + " kg"
-                + "\nListo para envio: " + (getListoParaEnvio() ? "Si" : "No")
-                + "\nTipo de alimento: " + tipoAlimento
-                + "\nFecha de vencimiento: " + fechaVencimiento
-                + "\nPrioridad: " + nivelPrioridad;
+    public void registrarLote() {
+        super.registrarLote();
+        Scanner sc = ENTRADA;
+
+        System.out.print("Ingrese el tipo de alimento: ");
+        this.tipoAlimento = sc.nextLine();
+        System.out.print("Ingrese la fecha de vencimiento: ");
+        this.fechaVencimiento = sc.nextLine();
+        System.out.print("Ingrese el nivel de prioridad (1-5): ");
+        this.nivelPrioridad = leerInt(sc);
     }
 
     @Override
-    public boolean alternarEstadoDeEnvio() {
-        setListoParaEnvio(!getListoParaEnvio());
-        return getListoParaEnvio();
+    protected String datosEspecificos() {
+        return "\nTipo de alimento: " + tipoAlimento
+                + "\nFecha de vencimiento: " + fechaVencimiento
+                + "\nPrioridad: " + nivelPrioridad;
     }
 }
