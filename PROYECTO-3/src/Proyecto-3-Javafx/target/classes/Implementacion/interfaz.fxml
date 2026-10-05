@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    Centro de Acopio UNET
+    Universidad Nacional Experimental del Táchira
+
+    Estilos 100% inline con propiedades -fx-*.
+    Cada fx:id de este archivo tiene su campo @FXML en
+    Implementacion/controlador.java
+-->
+<BorderPane prefHeight="800.0" prefWidth="1320.0"
+            style="-fx-background-color: #F8FAFC; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-text-fill: #0F172A;"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Implementacion.controlador">
+
+    <!-- ============================================================ HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14.0"
+              style="-fx-background-color: #FFFFFF; -fx-padding: 12 22; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+
+            <StackPane style="-fx-background-color: #002B49; -fx-background-radius: 24; -fx-min-width: 44; -fx-min-height: 44; -fx-max-width: 44; -fx-max-height: 44; -fx-effect: dropshadow(gaussian, #0F172A33, 12, 0.16, 0, 4);">
+                <Label text="U" style="-fx-font-size: 24px; -fx-font-weight: 700; -fx-text-fill: #10B981;"/>
+            </StackPane>
+
+            <VBox spacing="2.0">
+                <Label text="Centro de Acopio UNET"
+                       style="-fx-font-size: 19px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                <Label text="Universidad Nacional Experimental del Táchira"
+                       style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <ImageView fx:id="logoCorp" fitHeight="42.0" fitWidth="42.0" preserveRatio="true"/>
+
+            <VBox alignment="CENTER_RIGHT" spacing="3.0">
+                <HBox alignment="CENTER_RIGHT" spacing="7.0">
+                    <Region style="-fx-background-color: #10B981; -fx-background-radius: 4; -fx-min-width: 8; -fx-min-height: 8; -fx-max-width: 8; -fx-max-height: 8;"/>
+                    <Label text="Sistema operativo"
+                           style="-fx-font-size: 12px; -fx-text-fill: #2E7D32;"/>
+                </HBox>
+                <Label fx:id="usuarioActivo" text="Sin responsable asignado"
+                       style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- =========================================================== SIDEBAR -->
+    <left>
+        <VBox prefWidth="238.0" spacing="6.0"
+              style="-fx-background-color: #FFFFFF; -fx-padding: 20 14 16 14; -fx-border-color: transparent #E2E8F0 transparent transparent; -fx-border-width: 0 1 0 0;">
+
+            <Label text="Secciones" style="-fx-font-size: 11px; -fx-font-weight: 600; -fx-text-fill: #64748B; -fx-padding: 0 0 0 10;"/>
+
+            <VBox spacing="6.0">
+                <ToggleButton fx:id="btnNavRecepcion" onAction="#irARecepcion" selected="true"
+                              text="Recepción de materiales"
+                              style="-fx-background-color: #002B49; -fx-border-color: transparent; -fx-border-radius: 8; -fx-padding: 11 12; -fx-alignment: center-left; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #0F172A26, 12, 0.12, 0, 4);"/>
+                <ToggleButton fx:id="btnNavInventario" onAction="#irAInventario"
+                              text="Inventario / stock"
+                              style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-border-radius: 8; -fx-padding: 11 12; -fx-alignment: center-left; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #0F172A; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="btnNavDonantes" onAction="#irADonantes"
+                              text="Registro de donantes"
+                              style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-border-radius: 8; -fx-padding: 11 12; -fx-alignment: center-left; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #0F172A; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="btnNavReportes" onAction="#irAReportes"
+                              text="Reportes e historial"
+                              style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-border-radius: 8; -fx-padding: 11 12; -fx-alignment: center-left; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #0F172A; -fx-cursor: hand;"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <VBox spacing="4.0"
+                  style="-fx-padding: 12; -fx-background-color: #E7F7F0; -fx-background-radius: 8;">
+                <Label text="Zona de acopio"
+                       style="-fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: #2E7D32;"/>
+                <Label wrapText="true"
+                       text="El material se registra por lote y queda disponible para despacho."
+                       style="-fx-font-size: 11.5px; -fx-text-fill: #64748B;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ============================================================== MAIN -->
+    <center>
+        <VBox spacing="18.0" style="-fx-padding: 20 22 18 22;">
+
+            <!-- metric cards -->
+            <HBox spacing="14.0">
+                <VBox spacing="3.0" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 15 17; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                    <Label text="Kilos en acopio" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="metricaPeso" text="0"
+                           style="-fx-font-size: 29px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                    <Label fx:id="metricaPesoNota" text="peso registrado en lotes"
+                           style="-fx-font-size: 11.5px; -fx-text-fill: #2E7D32;"/>
+                </VBox>
+                <VBox spacing="3.0" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 15 17; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                    <Label text="Lotes registrados" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="metricaLotes" text="0"
+                           style="-fx-font-size: 29px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                    <Label fx:id="metricaLotesNota" text="materiales en el inventario"
+                           style="-fx-font-size: 11.5px; -fx-text-fill: #2E7D32;"/>
+                </VBox>
+                <VBox spacing="3.0" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 15 17; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                    <Label text="Capacidad libre" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="metricaCapacidad" text="0"
+                           style="-fx-font-size: 29px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                    <Label fx:id="metricaCapacidadNota" text="kg disponibles en la flota"
+                           style="-fx-font-size: 11.5px; -fx-text-fill: #2E7D32;"/>
+                </VBox>
+            </HBox>
+
+            <!-- section pages -->
+            <StackPane fx:id="pilaSecciones" VBox.vgrow="ALWAYS">
+
+                <!-- PAGINA 1: RECEPCION -->
+                <ScrollPane fx:id="paginaRecepcion" fitToWidth="true"
+                            style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+                    <VBox spacing="14.0">
+
+                        <VBox spacing="14.0"
+                              style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                            <VBox spacing="2.0"
+                                  style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                                <Label text="Recepción de materiales"
+                                       style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                                <Label wrapText="true"
+                                       text="Registra un lote nuevo. Los campos técnicos cambian según el tipo de material."
+                                       style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                            </VBox>
+
+                            <padding>
+                                <Insets bottom="18.0" left="18.0" right="18.0" top="16.0"/>
+                            </padding>
+
+                            <GridPane hgap="14.0" vgap="11.0">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="150.0" prefWidth="150.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                    <ColumnConstraints minWidth="150.0" prefWidth="150.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Id del lote" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtIdLote" promptText="ALI004"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Tipo de material" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <ComboBox fx:id="cmbTipo" maxWidth="1.7976931348623157E308"
+                                          GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 7 10; -fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+
+                                <Label text="Nombre del material" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtNombre" promptText="Harina de trigo"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Peso (kg)" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtPeso" promptText="12.5"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="1"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Descripción de uso" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtDescripcion" promptText="Saco de 10 kg para cocina"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label fx:id="lblDetalle" text="Tipo de alimento"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="2"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtDetalle" promptText="Granos"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="2"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label fx:id="lblVencimiento" text="Fecha de vencimiento"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="3"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtVencimiento" promptText="2027-03-14"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="3"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label fx:id="lblCantidad" text="Volumen (L)"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="3"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtCantidad" promptText="20.0"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="3"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Prioridad" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <ComboBox fx:id="cmbPrioridad" maxWidth="1.7976931348623157E308"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 7 10; -fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+
+                                <CheckBox fx:id="chkListo" text="Listo para envío"
+                                          GridPane.columnIndex="2" GridPane.rowIndex="4"
+                                          style="-fx-font-size: 13px; -fx-text-fill: #0F172A; -fx-cursor: hand;"/>
+
+                                <Separator GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="5"
+                                           style="-fx-background-color: #E2E8F0; -fx-padding: 0;"/>
+
+                                <Label text="Responsable" GridPane.columnIndex="0" GridPane.rowIndex="6"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtResponsable" promptText="María Pérez"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="6"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Cédula" GridPane.columnIndex="2" GridPane.rowIndex="6"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtCedula" promptText="V-12345678"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="6"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+                            </GridPane>
+                        </VBox>
+
+                        <VBox spacing="12.0"
+                              style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                            <VBox spacing="2.0"
+                                  style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                                <Label text="Despacho"
+                                       style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                                <Label text="Carga el lote que tengas seleccionado en Inventario / stock."
+                                       style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                            </VBox>
+
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="14.0"/>
+                            </padding>
+
+                            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                <Label text="Unidad" style="-fx-font-size: 12.5px; -fx-text-fill: #64748B;"/>
+                                <ComboBox fx:id="cmbTransporte" prefWidth="270.0"
+                                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 7 10; -fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button onAction="#cargarEnTransporte" text="Cargar lote"
+                                        style="-fx-background-color: #10B981; -fx-text-fill: #FFFFFF; -fx-font-size: 13px; -fx-font-weight: 600; -fx-background-radius: 8; -fx-padding: 10 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #0F172A1F, 12, 0.12, 0, 4);"/>
+                                <Button onAction="#avanzarEstado" text="Avanzar estado"
+                                        style="-fx-background-color: #FFFFFF; -fx-text-fill: #002B49; -fx-font-size: 13px; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 10 18; -fx-cursor: hand;"/>
+                            </HBox>
+
+                            <HBox spacing="14.0">
+                                <VBox spacing="2.0" HBox.hgrow="ALWAYS"
+                                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 15 17;">
+                                    <Label text="Lote en foco" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                                    <Label fx:id="loteEnFoco" text="—"
+                                           style="-fx-font-size: 29px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                                    <Label fx:id="loteEnFocoNota" text="selecciona una fila del inventario"
+                                           style="-fx-font-size: 11.5px; -fx-text-fill: #2E7D32;"/>
+                                </VBox>
+                                <VBox spacing="2.0" HBox.hgrow="ALWAYS"
+                                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 15 17;">
+                                    <Label text="Siguiente unidad en salir" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                                    <Label fx:id="siguientePlaca" text="—"
+                                           style="-fx-font-size: 29px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                                    <Label fx:id="siguientePlacaNota" text="orden de salida más bajo"
+                                           style="-fx-font-size: 11.5px; -fx-text-fill: #2E7D32;"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+
+                <!-- PAGINA 2: INVENTARIO -->
+                <StackPane fx:id="paginaInventario">
+                    <VBox spacing="12.0"
+                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                        <VBox spacing="2.0"
+                              style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                            <Label text="Inventario / stock"
+                                   style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                            <Label text="Todos los lotes del acopio. Selecciona una fila para poder despacharla."
+                                   style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                        </VBox>
+
+                        <padding>
+                            <Insets bottom="16.0" left="16.0" right="16.0" top="14.0"/>
+                        </padding>
+
+                        <TableView fx:id="tablaLotes" VBox.vgrow="ALWAYS"
+                                   style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-table-cell-border-color: transparent; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                            <columns>
+                                <TableColumn fx:id="colId" prefWidth="92.0" text="Lote"/>
+                                <TableColumn fx:id="colNombre" prefWidth="186.0" text="Material"/>
+                                <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo"/>
+                                <TableColumn fx:id="colPeso" prefWidth="96.0" text="Peso (kg)"/>
+                                <TableColumn fx:id="colEstado" prefWidth="124.0" text="Estado"/>
+                                <TableColumn fx:id="colPlaca" prefWidth="92.0" text="Placa"/>
+                                <TableColumn fx:id="colDestino" prefWidth="160.0" text="Destino"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox fx:id="vacioLotes" alignment="CENTER" spacing="7.0" visible="false"
+                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10;">
+                        <Label text="Todavía no hay lotes registrados"
+                               style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                        <Label text="Abre Recepción de materiales y registra el primero."
+                               style="-fx-font-size: 12.5px; -fx-text-fill: #64748B;"/>
+                        <padding>
+                            <Insets bottom="34.0" left="44.0" right="44.0" top="34.0"/>
+                        </padding>
+                    </VBox>
+                </StackPane>
+
+                <!-- PAGINA 3: DONANTES -->
+                <ScrollPane fx:id="paginaDonantes" fitToWidth="true"
+                            style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+                    <VBox spacing="14.0">
+
+                        <VBox spacing="14.0"
+                              style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                            <VBox spacing="2.0"
+                                  style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                                <Label text="Registro de donantes y estudiantes"
+                                       style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                                <Label wrapText="true"
+                                       text="Quién hace la entrega y quién verifica la carga antes de despachar."
+                                       style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                            </VBox>
+
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="14.0"/>
+                            </padding>
+
+                            <GridPane hgap="14.0" vgap="11.0">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="120.0" prefWidth="120.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                    <ColumnConstraints minWidth="120.0" prefWidth="120.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtNombreDonante" promptText="María Pérez"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Cédula" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtCedulaDonante" promptText="V-12345678"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-font-family: Consolas; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <Label text="Rol" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <ComboBox fx:id="cmbRol" maxWidth="1.7976931348623157E308"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                          style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 7 10; -fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+
+                                <Label text="Área" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                                       style="-fx-font-size: 12.5px; -fx-text-fill: #64748B; -fx-alignment: center-left;"/>
+                                <TextField fx:id="txtArea" promptText="Logística"
+                                           GridPane.columnIndex="3" GridPane.rowIndex="1"
+                                           style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 9 11; -fx-font-size: 13px; -fx-prompt-text-fill: #A8B4C4; -fx-text-fill: #0F172A;"/>
+
+                                <CheckBox fx:id="chkPuedeAprobar" text="Puede aprobar carga" visible="false"
+                                          GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2"
+                                          style="-fx-font-size: 13px; -fx-text-fill: #0F172A; -fx-cursor: hand;"/>
+
+                                <Button onAction="#anadirPersona" text="Añadir persona"
+                                        GridPane.columnIndex="3" GridPane.rowIndex="2"
+                                        style="-fx-background-color: #10B981; -fx-text-fill: #FFFFFF; -fx-font-size: 13px; -fx-font-weight: 600; -fx-background-radius: 8; -fx-padding: 10 16; -fx-cursor: hand;"/>
+                            </GridPane>
+                        </VBox>
+
+                        <VBox spacing="12.0"
+                              style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                            <VBox spacing="2.0"
+                                  style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                                <Label text="Personas registradas"
+                                       style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                            </VBox>
+
+                            <padding>
+                                <Insets bottom="16.0" left="16.0" right="16.0" top="14.0"/>
+                            </padding>
+
+                            <TableView fx:id="tablaPersonas" VBox.vgrow="ALWAYS"
+                                       style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-table-cell-border-color: transparent; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                                <columns>
+                                    <TableColumn fx:id="colPersonaNombre" prefWidth="200.0" text="Nombre"/>
+                                    <TableColumn fx:id="colPersonaCedula" prefWidth="140.0" text="Cédula"/>
+                                    <TableColumn fx:id="colPersonaRol" prefWidth="180.0" text="Rol"/>
+                                    <TableColumn fx:id="colPersonaDetalle" prefWidth="220.0" text="Detalle"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+
+                <!-- PAGINA 4: REPORTES -->
+                <VBox fx:id="paginaReportes" spacing="14.0"
+                      style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, #0F172A14, 12, 0.12, 0, 4);">
+                    <VBox spacing="2.0"
+                          style="-fx-padding: 16 18 12 18; -fx-border-color: transparent transparent #E2E8F0 transparent; -fx-border-width: 0 0 1 0;">
+                        <Label text="Reportes e historial"
+                               style="-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #002B49;"/>
+                        <Label text="Ficha logística de cada lote y estado completo del acopio."
+                               style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+                    </VBox>
+
+                    <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="14.0"/>
+                    </padding>
+
+                    <TextArea fx:id="txtReporte" editable="false" wrapText="false" VBox.vgrow="ALWAYS"
+                              style="-fx-font-family: Consolas; -fx-font-size: 12.5px; -fx-text-fill: #002B49; -fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 10; -fx-padding: 16;"/>
+                </VBox>
+            </StackPane>
+        </VBox>
+    </center>
+
+    <!-- =========================================================== ACCIONES -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="10.0"
+              style="-fx-background-color: #FFFFFF; -fx-padding: 13 22; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0;">
+            <Button onAction="#registrarEntrada" text="Registrar entradas"
+                    style="-fx-background-color: #002B49; -fx-text-fill: #FFFFFF; -fx-font-size: 13px; -fx-font-weight: 600; -fx-background-radius: 8; -fx-padding: 10 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #0F172A1F, 12, 0.12, 0, 4);"/>
+            <Button onAction="#exportarReporte" text="Exportar reporte"
+                    style="-fx-background-color: #FFFFFF; -fx-text-fill: #002B49; -fx-font-size: 13px; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 10 18; -fx-cursor: hand;"/>
+            <Button onAction="#limpiarCampos" text="Limpiar campos"
+                    style="-fx-background-color: transparent; -fx-text-fill: #64748B; -fx-font-size: 13px; -fx-border-color: transparent; -fx-background-radius: 8; -fx-padding: 10 14; -fx-cursor: hand;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lineaEstado" text="Listo para recibir material."
+                   style="-fx-font-family: Consolas; -fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+        </HBox>
+    </bottom>
+</BorderPane>
